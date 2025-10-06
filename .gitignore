@@ -1,0 +1,33 @@
+# Python / Django
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.log
+*.pot
+
+# Django specific
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+
+
+# dotenv
+.env
+.env.development
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Ignore Django migration files except __init__.py
+**/migrations/*
