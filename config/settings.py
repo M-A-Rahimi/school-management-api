@@ -16,6 +16,7 @@ dotenv_path = os.path.join(BASE_DIR, ".env.development")
 
 load_dotenv(dotenv_path)
 
+AUTH_USER_MODEL = "account.User"
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY", None)
