@@ -27,3 +27,6 @@ class QueueSignUp(models.Model):
     
     def __str__(self):
         return F"{'student' if self.role == 's' else 'teacher' } --- {self.first_name} {self.last_name}"
+    
+    class Meta:
+        ordering = ('-updated_at',)
