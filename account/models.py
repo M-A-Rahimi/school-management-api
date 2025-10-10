@@ -1,4 +1,5 @@
 from django.db import models
+# from django.contrib.gis.db import models as gis_models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
@@ -7,6 +8,7 @@ class User(AbstractUser):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="s")
     national_code = models.CharField(max_length = 10,unique = True)
     bio = models.TextField(blank=True, null=True)
+    # location = gis_models.PointField(srid=4326, null=True, blank=True)
  
     def __str__(self):
         return F"{self.username} --- {self.first_name} {self.last_name}"
