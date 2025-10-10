@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets,mixins
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,8 +6,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
 from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import QueueSignUpSerializer
-from .models import QueueSignUp
+from .serializers import QueueSignUpSerializer,AdminUserSerializer
+from .models import QueueSignUp,User
 from .permission import IsSuperUser
 class QueueSignUpViewSet(viewsets.ModelViewSet):
     """
@@ -104,3 +104,11 @@ class LogoutView(APIView):
         response.delete_cookie('access_token')
         response.delete_cookie('refresh_token')
         return response
+    
+    
+class ListUsersViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
+    permission_classes = [IsSuperUser]
+    serializer_class = AdminUserSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['status']
+    queryset = User.objects.all()

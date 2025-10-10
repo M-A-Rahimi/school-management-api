@@ -20,4 +20,5 @@ from django.urls.conf import include
 urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/account/', include("account.urls")),
+    path('api/school/', include("school.urls")),
 ]

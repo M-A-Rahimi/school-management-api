@@ -54,3 +54,15 @@ class QueueSignUpSerializer(serializers.ModelSerializer):
         if User.objects.filter(email = value).exists():
             raise serializers.ValidationError("This email already exists in the system!")
         return value
+
+class AdminUserSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = User
+        fields = ['id','username','first_name','last_name','national_code','email','status','date_joined','bio']
+
+class UserSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = User
+        fields = ['id','username','first_name','last_name','status','bio']

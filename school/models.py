@@ -1,11 +1,13 @@
 from django.db import models
 from account.models import User
+# from django.contrib.gis.db import models as gis_models
 # Create your models here.
 
 
 class School(models.Model):
     name = models.CharField(max_length = 50)
     management = models.OneToOneField(User,on_delete = models.PROTECT,related_name = 'management_school')
+    # location = gis_models.PointField(srid=4326, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
@@ -23,7 +25,7 @@ class SchoolStudent(models.Model):
         return f"Student {self.student.username} - School {self.school.name}"
     
     class Meta:
-        unique_together = ("student", "school")
+        unique_together = ("school",)
         
 
 class SchoolTeacher(models.Model):
@@ -58,7 +60,7 @@ class LessonStudent(models.Model):
     updated_at= models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f"Student {self.student.username} - Lesson {self.lesson}"
+        return f"Student {self.student.username} - Lesson {self.lesson_teacher.lesson.name}"
     
     class Meta:
         unique_together = ("student", "lesson_teacher")
@@ -71,3 +73,6 @@ class ClassRoom(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return F"ClassRoom --- {self.name} --- {self.school.name}"
+
+    # class Meta:
+    #     unique_together = ("name", "school")
