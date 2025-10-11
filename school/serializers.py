@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from .models import School,ClassRoom,LessonTeacher,SchoolTeacher,SchoolStudent,SchoolTeacher
 from account.models import User
-from account.serializers import UserSerializer
-from lesson.serializers import LessonSerializer
+from account.serializers import UserSerializer,AdminUserSerializer
+from lesson.school_serializers import LessonSerializer
 
 class SchoolListCreateSerializer(serializers.ModelSerializer):    
     management = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(status='m'),write_only=True)
 
-    management_detail = UserSerializer(source='management', read_only=True)
+    management_detail = AdminUserSerializer(source='management', read_only=True)
 
     class Meta:
         model = School

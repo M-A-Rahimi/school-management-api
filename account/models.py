@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     STATUS_CHOICES = (("m","management"),("t","teacher"),("s","student"))
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="s")
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="s",blank = True,null = True)
     national_code = models.CharField(max_length = 10,unique = True)
     bio = models.TextField(blank=True, null=True)
     # location = gis_models.PointField(srid=4326, null=True, blank=True)
