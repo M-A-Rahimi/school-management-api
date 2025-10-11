@@ -23,7 +23,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY", None)
 DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost").split(',')
 
+ASGI_APPLICATION = "config.asgi.application"
 
+WSGI_APPLICATION = 'config.wsgi.application'
 
 # Application definition
 
@@ -35,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # "django.contrib.gis",
+    'channels',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',    
     'account.apps.AccountConfig',
@@ -52,6 +55,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(os.environ.get("REDIS_HOST"), int(os.environ.get("REDIS_PORT")))],
+        },
+    },
+}
+
+
 
 ROOT_URLCONF = 'config.urls'
 
@@ -71,7 +85,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database

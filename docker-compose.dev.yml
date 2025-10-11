@@ -12,6 +12,14 @@ services:
     ports:
       - "5433:5432"
 
+  redis:
+    image: redis:alpine
+    container_name: school_redis
+    networks:
+      - school
+    restart: always
+    ports:
+      - "6379:6379" 
 
 volumes:
   school_db_data:
